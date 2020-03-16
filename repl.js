@@ -1,23 +1,30 @@
+
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const mongooseLeanVirtuals = require('mongoose-lean-virtuals')
+mongoose.Promise = global.Promise
+mongoose.connect('mongodb://localhost/dbname', {useNewUrlParser: true, useUnifiedTopology: true })
 
-const schema = new Schema({
-  releation: {type: Schema.Types.ObjectId, ref: 'OtherSchema'},
-}, {
-  timestamps: true,
-  toObject: {
-    virtuals: true,
-  },
-  toJSON: {
-    virtuals: true,
-    transform: (doc, m) => {
-      delete m.__v
-      return m
-    },
-  },
-})
+console.log('REPL with async/await and mongoose! 🐍')
+const moment = require('moment')
+const repl = require('repl')
 
-schema.plugin(mongooseLeanVirtuals)
+async function main() {
+  const replInstance = repl.start({ prompt: '> ' })
+  replInstance.context.moment = moment
 
-module.exports = mongoose.model('SchemaName', schema)
+  const HISTORY_DIRECTORY = __dirname + '/.ym_history'
+  // require node version above v11.10.0
+  replInstance.setupHistory(HISTORY_DIRECTORY, (err) => {
+    if (err) console.log(err)
+  })
+
+  const models = require('./models')
+  for (const name in models) {
+    replInstance.context[name] = models[name]
+  }
+
+  replInstance.on('exit', () => {
+    mongoose.disconnect()
+  })
+}
+main()
+
