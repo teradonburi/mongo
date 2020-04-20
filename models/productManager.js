@@ -26,4 +26,4 @@ schema.pre('findOneAndUpdate', async function(next) {
 
 schema.plugin(mongooseLeanVirtuals)
 
-module.exports = mongoose.model('Programmer', schema)
+module.exports = mongoose.model('ProductManager', schema)

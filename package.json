@@ -10,5 +10,8 @@
     "mongoose": "^5.9.2",
     "mongoose-lean-virtuals": "^0.5.0",
     "validator": "^12.2.0"
+  },
+  "scripts": {
+    "mongo": "node --experimental-repl-await repl.js"
   }
 }
