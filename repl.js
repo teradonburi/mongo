@@ -1,9 +1,8 @@
 
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/dbname', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb://localhost/dbname', {useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true})
 
-console.log('REPL with async/await and mongoose! 🐍')
 const moment = require('moment')
 const repl = require('repl')
 
