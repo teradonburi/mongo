@@ -3,7 +3,6 @@ const Schema = mongoose.Schema
 const mongooseLeanVirtuals = require('mongoose-lean-virtuals')
 const validator = require('validator')
 
-const grade = ['normal', 'super', 'ultra']
 
 const reviewSchema = new Schema({
   rating: {type: Number, required: true, min: 1, max: 5},
@@ -30,11 +29,11 @@ const schema = new Schema({
     unique: true,
     select: false,
     validate: { 
-      validator: (v) => /\b[0０][0-9０-９]{9,10}\b/.test((word || '').replace(/-|ー/g, '')),
+      validator: (v) => /\b[0０][0-9０-９]{9,10}\b/.test((v || '').replace(/-|ー/g, '')),
       message: props => `${props.value}は正しい電話番号ではありません。`
     },
   },
-  password: {type: String, transform: (v) => {}},
+  password: {type: String, required: true},
   token: {
     type: String,
     required: true,
@@ -50,7 +49,7 @@ const schema = new Schema({
   isAdmin: {type: Boolean, default: false},
   grade: {
     type: String,
-    enum: grade,
+    enum: ['normal', 'super', 'ultra'],
     validate: {
       validator: (v, grade) => {
         if (grade.indexOf(grade) <= grade.indexOf(v)) {
@@ -62,8 +61,8 @@ const schema = new Schema({
     },
   },
   role: {
-    model: { type: String, enum: ['Programmer', 'ProductManager', 'ProductOwener'] },
     type: { type: Schema.Types.ObjectId, refPath: 'role.model' },
+    model: { type: String, enum: ['Programmer', 'ProductManager'] },
   },
   isDeleted: {type: Boolean, default: false},
 }, {
