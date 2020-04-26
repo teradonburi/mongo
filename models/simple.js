@@ -12,13 +12,13 @@ const schema = new Schema({
   m: Number, // {type: Number}の省略記法、オプションなしの場合のみ可能
   bool: {type: Boolean},
   b: Boolean, // {type: Boolean}の省略記法、オプションなしの場合のみ可能
-  ref: {type: Schema.Types.ObjectId, refPath: 'User'},
+  ref: {type: Schema.Types.ObjectId, ref: 'User'},
   arr: [{type: String}],
   obj: {
     a: {type: String},
     b: {type: Number},
   },
-  refs: [{type: Schema.Types.ObjectId, refPath: 'User'}],
+  refs: [{type: Schema.Types.ObjectId, ref: 'User'}],
   sub: subSchema,
 })
 

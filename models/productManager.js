@@ -4,7 +4,7 @@ const mongooseLeanVirtuals = require('mongoose-lean-virtuals')
 
 const schema = new Schema({
   skill: [{type: String}],
-  programers: [{type: Schema.Types.ObjectId, refPath: 'Programmer'}]
+  programmers: [{type: Schema.Types.ObjectId, ref: 'Programmer'}]
 }, {
   timestamps: true,
   versionKey: false,

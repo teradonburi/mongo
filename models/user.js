@@ -36,15 +36,15 @@ const schema = new Schema({
   password: {type: String, required: true},
   token: {
     type: String,
-    required: true,
+    // required: true,
     select: false,
     validate: { 
       validator: (v) => validator.isJWT(v),
       message: () => '不正なトークンです。',
     },
   },
-  invitedFrom: {type: Schema.Types.ObjectId, refPath: 'User'},
-  invites: [{type: Schema.Types.ObjectId, refPath: 'User'}],
+  invitedFrom: {type: Schema.Types.ObjectId, ref: 'User'},
+  invites: [{type: Schema.Types.ObjectId, ref: 'User'}],
   reviews: [reviewSchema],
   isAdmin: {type: Boolean, default: false},
   grade: {
@@ -71,12 +71,18 @@ const schema = new Schema({
   toObject: {
     minimize: true,
     virtuals: true,
-    transform,
+    transform : function(doc, user) {
+      console.log('toObject')
+      transform(doc, user)
+    },
   },
   toJSON: {
     minimize: true,
     virtuals: true,
-    transform,
+    transform: function(doc, user) {
+      console.log('toJSON')
+      transform(doc, user)
+    },
   },
 })
 
@@ -114,9 +120,16 @@ const postSave = async function(doc, next) {
 schema.post('findOneAndUpdate', postSave)
 schema.post('save', postSave)
 
+
+schema.method('showName', function() {
+  console.log(this.name)
+})
+
+// 仮想的なフィールド
 schema
   .virtual('image')
   .get(function() {
+    const webServer = 'http://localhost' // 保存の場所を変えた場合に差し替えできるようにする
     return `${webServer}/images/${this._id}`
   })
 
