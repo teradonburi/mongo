@@ -33,7 +33,6 @@ const schema = new Schema({
   },
   phone: {
     type: String,
-    // unique: true, // requiredでないやつはuniqueにしない方が良い
     select: false,
     validate: { 
       validator: (v) => /\b[0０][0-9０-９]{9,10}\b/.test((v || '').replace(/-|ー/g, '')),
@@ -68,8 +67,8 @@ const schema = new Schema({
     },
   },
   role: {
-    type: { type: Schema.Types.ObjectId, refPath: 'role.model' },
-    model: { type: String, enum: ['Programmer', 'ProductManager'] },
+    model: { type: Schema.Types.ObjectId, refPath: 'role.model' },
+    type: { type: String, enum: ['Programmer', 'ProductManager'] },
   },
   isDeleted: {type: Boolean, default: false},
 }, {
