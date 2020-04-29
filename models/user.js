@@ -4,7 +4,8 @@ const mongooseLeanVirtuals = require('mongoose-lean-virtuals')
 const mongooseLeanDefaults = require('mongoose-lean-defaults')
 const mongooseLeanMethods = require('../mongoose-lean-methods')
 const validator = require('validator')
-
+const jwt = require('jsonwebtoken')
+const secret = 'secret' // 本来はセキュリティのため、環境変数などにして.envやパラメータストア経由から取得する
 
 const reviewSchema = new Schema({
   rating: {type: Number, required: true, min: 1, max: 5},
@@ -42,12 +43,14 @@ const schema = new Schema({
   password: {type: String, required: true},
   token: {
     type: String,
-    // required: true,
     select: false,
     validate: { 
       validator: (v) => validator.isJWT(v),
       message: () => '不正なトークンです。',
     },
+    default: function() {
+      return jwt.sign(this._id.toString(), secret)
+    }
   },
   invitedFrom: {type: Schema.Types.ObjectId, ref: 'User'},
   invites: [{type: Schema.Types.ObjectId, ref: 'User'}],
