@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const mongooseLeanVirtuals = require('mongoose-lean-virtuals')
+const mongooseLeanDefaults = require('mongoose-lean-defaults')
+const mongooseLeanMethods = require('../mongoose-lean-methods')
 const validator = require('validator')
 
 
@@ -10,6 +12,11 @@ const reviewSchema = new Schema({
 }, {
   timestamps: true,
   versionKey: false,
+})
+
+
+reviewSchema.method('showRating', function() {
+  console.log(this.rating)
 })
 
 const schema = new Schema({
@@ -26,7 +33,7 @@ const schema = new Schema({
   },
   phone: {
     type: String,
-    unique: true,
+    // unique: true, // requiredでないやつはuniqueにしない方が良い
     select: false,
     validate: { 
       validator: (v) => /\b[0０][0-9０-９]{9,10}\b/.test((v || '').replace(/-|ー/g, '')),
@@ -134,6 +141,8 @@ schema
   })
 
 schema.plugin(mongooseLeanVirtuals)
+schema.plugin(mongooseLeanDefaults)
+schema.plugin(mongooseLeanMethods)
 
 schema.index({ email: 1 }, { unique: true })
 

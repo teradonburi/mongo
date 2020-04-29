@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const mongooseLeanVirtuals = require('mongoose-lean-virtuals')
+const mongooseLeanMethods = require('../mongoose-lean-methods')
 
 const schema = new Schema({
   skill: [{type: String}],
@@ -25,5 +26,11 @@ schema.pre('findOneAndUpdate', async function(next) {
 })
 
 schema.plugin(mongooseLeanVirtuals)
+schema.plugin(mongooseLeanMethods)
+
+schema.method('showSkill', function() {
+  console.log(this.skill)
+})
+
 
 module.exports = mongoose.model('ProductManager', schema)

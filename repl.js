@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/dbname', {useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb://localhost/dbname', {useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
 
 const moment = require('moment')
 const repl = require('repl')
