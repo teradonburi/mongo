@@ -134,6 +134,10 @@ schema.method('showName', function() {
   console.log(this.name)
 })
 
+schema.static('showName', function(doc) {
+  console.log(doc.name)
+})
+
 // 仮想的なフィールド
 schema
   .virtual('image')
