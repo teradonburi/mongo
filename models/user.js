@@ -70,8 +70,8 @@ const schema = new Schema({
     },
   },
   role: {
-    model: { type: Schema.Types.ObjectId, refPath: 'role.model' },
-    type: { type: String, enum: ['Programmer', 'ProductManager'] },
+    type: { type: Schema.Types.ObjectId, refPath: 'role.model' },
+    model: { type: String, enum: ['Programmer', 'ProductManager'] },
   },
   isDeleted: {type: Boolean, default: false},
 }, {
