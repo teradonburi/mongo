@@ -2,10 +2,7 @@ const mongo = require('./mongo')
 const { User, ProductManager, Programmer } = require('../models')
 
 afterEach(async () => {
-  for (const key in mongo.models) {
-    const model = mongo.models[key]
-    await model.deleteMany()
-  }
+  await mongo.deleteAll()
 })
 
 afterAll(async () => {

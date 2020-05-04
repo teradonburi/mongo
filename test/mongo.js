@@ -9,6 +9,13 @@ mongoose.connection.on('error', (e) => {
   console.log(e)
 })
 
+mongoose.deleteAll = async () => {
+  for (const key in mongoose.models) {
+    const model = mongoose.models[key]
+    await model.deleteMany()
+  }
+}
+
 const mongooseOpts = {
   useCreateIndex: true, 
   useNewUrlParser: true, 
