@@ -16,6 +16,11 @@
     "validator": "^12.2.0"
   },
   "scripts": {
-    "mongo": "node --experimental-repl-await repl.js"
+    "mongo": "node --experimental-repl-await repl.js",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^25.5.4",
+    "mongodb-memory-server": "^6.5.2"
   }
 }
