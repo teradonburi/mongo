@@ -2584,6 +2584,12 @@ mongoose-lean-defaults@^0.4.1:
   dependencies:
     mpath "^0.6.0"
 
+mongoose-lean-methods@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/mongoose-lean-methods/-/mongoose-lean-methods-0.1.0.tgz#bf08a0990b13c15c1726ea803b0b7b58287222cf"
+  dependencies:
+    mpath "^0.7.0"
+
 mongoose-lean-virtuals@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/mongoose-lean-virtuals/-/mongoose-lean-virtuals-0.5.0.tgz#58d4ffefb3515d52889df7d104fadba82248c93f"
